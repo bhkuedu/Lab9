@@ -28,8 +28,10 @@ public:
     void print_matrix() const;
 };
 
-#endif // __MATRIX_HPP__
-
 // This is fucking painful, but I understand now why it exists.
 template class Matrix<double>;
 template class Matrix<int>;
+
+
+#endif // __MATRIX_HPP__
+
