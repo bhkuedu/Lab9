@@ -28,6 +28,9 @@ public:
     Data sum_diagonal_minor() const;
     void swap_rows(std::size_t r1, std::size_t r2);
     void swap_cols(std::size_t c1, std::size_t c2);
+
+    // This is basically just get_value as described in the lab requirements, but sure I'll make a specific named alternative.
+    void update_rows(std::size_t r, std::size_t c, Data value);
     void print_matrix() const;
 };
 
@@ -135,6 +138,17 @@ void Matrix<Data>::set_value(std::size_t i, std::size_t j, Data value) {
 
     // this->print_matrix();
 }
+
+template<typename Data>
+void Matrix<Data>::update_rows(std::size_t r, std::size_t c, Data value) {
+    if (c < 0 || r < 0 || c >= this->get_size() || r >= this->get_size())
+        throw std::out_of_range("Out of range of matrix!");
+    
+    this->data[r][c] = value; // sets value at row i, column j to 'value'
+
+    this->print_matrix(); // Just to keep up with requisite
+}
+
 
 template<typename Data>
 Data Matrix<Data>::get_value(std::size_t i, std::size_t j) const {

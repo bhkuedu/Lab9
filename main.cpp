@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 
+
+
 int main(int argc, char *argv[]) {
     std::ifstream file;
     std::string filename;
@@ -61,6 +63,39 @@ int main(int argc, char *argv[]) {
         std::cout << std::endl << "Matrix 2:" << std::endl << std::endl;
         matrix2.print_matrix();
 
+
+        // matrix info
+
+        // Aditional testing stuff
+        // // sum
+        // Matrix matrix_sum = matrix1 + matrix2;
+        // std::cout << "sum of both:" << std::endl;
+        // matrix_sum.print_matrix();
+
+        // // product
+        // Matrix matrix_product = matrix1 * matrix2;
+        // std::cout << "product of both (matrix 1 first):" << std::endl;
+        // matrix_product.print_matrix();
+
+        // // diagonal major/minor
+        // std::cout << "matrix 1 diagonal major:" << matrix1.sum_diagonal_major() << std::endl;
+        // std::cout << "matrix 2 diagnonal minor:" << matrix1.sum_diagonal_minor() << std::endl;
+
+        // // swap row
+        // matrix1.swap_rows(1, 2);
+        // std::cout << "matrix 1, swapping row 1 and 2" << std::endl;
+        // matrix1.print_matrix();
+
+        // // swap columb
+        // matrix1.swap_cols(0, 1);
+        // std::cout << "matrix 1 after swapping columns 0 and 1:" << std::endl;
+        // matrix1.print_matrix();
+
+        // // update rows
+        // matrix1.update_rows(0, 1, 100);
+        // std::cout << "matrix 1 after updating rows with row 0 column 1, and the value of 100: " << std::endl;
+        // matrix1.print_matrix();
+        
     } else { // Double type
         Matrix<double> matrix1(N);
         Matrix<double> matrix2(N);
@@ -93,37 +128,46 @@ int main(int argc, char *argv[]) {
 
         std::cout << std::endl << "Matrix 2:" << std::endl << std::endl;
         matrix2.print_matrix();
+
+
+        // matrix info
+
+        // Aditional testing stuff
+        // // sum
+        // Matrix matrix_sum = matrix1 + matrix2;
+        // std::cout << "sum of both:" << std::endl;
+        // matrix_sum.print_matrix();
+
+        // // product
+        // Matrix matrix_product = matrix1 * matrix2;
+        // std::cout << "product of both (matrix 1 first):" << std::endl;
+        // matrix_product.print_matrix();
+
+        // // diagonal major/minor
+        // std::cout << "matrix 1 diagonal major:" << matrix1.sum_diagonal_major() << std::endl;
+        // std::cout << "matrix 2 diagnonal minor:" << matrix1.sum_diagonal_minor() << std::endl;
+
+        // // swap row
+        // matrix1.swap_rows(1, 2);
+        // std::cout << "matrix 1, swapping row 1 and 2" << std::endl;
+        // matrix1.print_matrix();
+
+        // // swap columb
+        // matrix1.swap_cols(0, 1);
+        // std::cout << "matrix 1 after swapping columns 0 and 1:" << std::endl;
+        // matrix1.print_matrix();
+
+        // // update rows
+        // matrix1.update_rows(0, 1, 100.10);
+        // std::cout << "matrix 1 after updating rows with row 0 column 1, and the value of 100.10:" << std::endl;
+        // matrix1.print_matrix();
+        
     }
     
     file.close(); // gotta close the file since we're done with it
 
-    // matrix info
-
-    // Aditional testing stuff
-    // // sum
-    // Matrix matrix_sum = matrix1 + matrix2;
-    // std::cout << "sum of both:" << std::endl;
-    // matrix_sum.print_matrix();
-
-    // // product
-    // Matrix matrix_product = matrix1 * matrix2;
-    // std::cout << "product of both (matrix 1 first):" << std::endl;
-    // matrix_product.print_matrix();
-
-    // // diagonal major/minor
-    // std::cout << "matrix 1 diagonal major:" << matrix1.sum_diagonal_major() << std::endl;
-    // std::cout << "matrix 2 diagnonal minor:" << matrix1.sum_diagonal_minor() << std::endl;
-
-    // // swap row
-    // matrix1.swap_rows(1, 2);
-    // std::cout << "matrix 1, swapping row 1 and 2" << std::endl;
-    // matrix1.print_matrix();
-
-    // // swap columb
-    // matrix1.swap_cols(0, 1);
-    // std::cout << "matrix 1 after swapping columns 0 and 1:" << std::endl;
-    // matrix1.print_matrix();
-
+    // matrix info - defined aboved in each if conditional branch
+    
 
     return 0;
 }
