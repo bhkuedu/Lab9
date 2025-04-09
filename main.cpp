@@ -99,7 +99,6 @@ int main(int argc, char *argv[]) {
 
     // matrix info
 
-
     // Aditional testing stuff
     // // sum
     // Matrix matrix_sum = matrix1 + matrix2;
