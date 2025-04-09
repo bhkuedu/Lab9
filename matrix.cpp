@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-
+#include <cstddef>
 // implementation of functions declared in matrix.hpp goes here
 // function definitions for a class have their names prefixed with
 // the class name and "::"
@@ -13,12 +13,13 @@
 // e.g. for the constructor:
 
 // construct matrix of size n (columns and rows)
-Matrix::Matrix(size_t n) {
+template<typename Data>
+Matrix<Data>::Matrix(size_t n) {
     this->size = n; // Set rows/columns size
-    data = new int*[n]; // allocate data on heap for rows
+    data = new Data*[n]; // allocate data on heap for rows
     
     for (size_t i = 0; i < n; ++i) { // iterate through rows to allocate columns
-        data[i] = new int[n]; // allocate column on heap
+        data[i] = new Data[n]; // allocate column on heap
         std::fill(data[i], data[i] + n, 0); // fill column with 0s
     }
 } 
@@ -26,7 +27,8 @@ Matrix::Matrix(size_t n) {
 // e.g. for a member function:
 
 // Prints matrix out
-void Matrix::print_matrix() const {
+template<typename Data>
+void Matrix<Data>::print_matrix() const {
     size_t max_width = 0;
     for (size_t i = 0; i < size; ++i) {
         for (size_t j = 0; j < size; ++j) {
@@ -47,12 +49,13 @@ void Matrix::print_matrix() const {
 
 
 // Instantiate matrix from vector of values 
-Matrix::Matrix(std::vector<std::vector<int>> nums) {
+template<typename Data>
+Matrix<Data>::Matrix(std::vector<std::vector<Data>> nums) {
     size = nums.size();
-    data = new int*[size];
+    data = new Data*[size];
     
     for (size_t i = 0; i < size; ++i) {
-        data[i] = new int[size];
+        data[i] = new Data[size];
 
         if (nums[i].size() != size)
             throw std::invalid_argument("Row size does not match column size!");
@@ -63,7 +66,8 @@ Matrix::Matrix(std::vector<std::vector<int>> nums) {
     }
 } 
 
-Matrix Matrix::operator+(const Matrix &rhs) const {
+template<typename Data>
+Matrix<Data> Matrix<Data>::operator+(const Matrix<Data> &rhs) const {
     if (this->get_size() != rhs.get_size())
         throw std::invalid_argument("Matrices are not the same size!");
     Matrix result(rhs.size); // Create new matrix of same size
@@ -79,11 +83,12 @@ Matrix Matrix::operator+(const Matrix &rhs) const {
     return result; // Return new matrix (result of addition)
 }
 
-Matrix Matrix::operator*(const Matrix &rhs) const {
+template<typename Data>
+Matrix<Data> Matrix<Data>::operator*(const Matrix<Data> &rhs) const {
     if (this->get_size() != rhs.get_size()) // Don't need to check rows or columns size because our matrices are all square ones!
         throw std::invalid_argument("Matrices are not the same size!");
 
-    Matrix result(this->size); // Create new matrix (will be same size bc of how matrix multiplication works with same-sized square matrices)
+    Matrix<Data> result(this->size); // Create new matrix (will be same size bc of how matrix multiplication works with same-sized square matrices)
     
     for (size_t i = 0; i < this->size; ++i) { // Iterate over row of this matrix
         for (size_t j = 0; j < rhs.size; ++j) { // Iterate over column of other matrix
@@ -99,7 +104,8 @@ Matrix Matrix::operator*(const Matrix &rhs) const {
     return result; // Return new matrix (result of multiplicatio)
 }
 
-void Matrix::set_value(std::size_t i, std::size_t j, int value) {
+template<typename Data>
+void Matrix<Data>::set_value(std::size_t i, std::size_t j, Data value) {
     if (i < 0 || j < 0 || i >= this->get_size() || j >= this->get_size())
         throw std::out_of_range("Out of range of matrix!");
     
@@ -108,18 +114,21 @@ void Matrix::set_value(std::size_t i, std::size_t j, int value) {
     // this->print_matrix();
 }
 
-int Matrix::get_value(std::size_t i, std::size_t j) const {
+template<typename Data>
+Data Matrix<Data>::get_value(std::size_t i, std::size_t j) const {
     if (i < 0 || j < 0 || i >= this->get_size() || j >= this->get_size())
         throw std::out_of_range("Out of range of matrix!");
     return this->data[i][j]; // gets value at row i, column j
 }
 
-int Matrix::get_size() const {
+template<typename Data>
+Data Matrix<Data>::get_size() const {
     return this->size; // return matrix size
 }
 
-int Matrix::sum_diagonal_major() const {
-    int sum = 0;
+template<typename Data>
+Data Matrix<Data>::sum_diagonal_major() const {
+    Data sum = 0;
     
     for (size_t i = 0; i < this->size; ++i) {
         sum += this->data[i][i]; // We move across the diagonal, so we only need to index by i in both the row and the column!
@@ -129,8 +138,9 @@ int Matrix::sum_diagonal_major() const {
     return sum; // return sum
 }
 
-int Matrix::sum_diagonal_minor() const {
-    int sum = 0;
+template<typename Data>
+Data Matrix<Data>::sum_diagonal_minor() const {
+    Data sum = 0;
     
     for (size_t i = 0; i < this->size; ++i) {
         sum += this->data[i][this->size - 1 - i]; // Minor is flipped across the vertical axis compared to major. We need to go from max column to min column, so we subtract from the size of the matrix! 
@@ -139,7 +149,8 @@ int Matrix::sum_diagonal_minor() const {
     return sum; // return minor sum
 }
 
-void Matrix::swap_rows(std::size_t r1, std::size_t r2) {
+template<typename Data>
+void Matrix<Data>::swap_rows(std::size_t r1, std::size_t r2) {
     if (r1 < 0 || r2 < 0 || r1 >= this->get_size() || r2 >= this->get_size())
         throw std::out_of_range("Out of range of matrix!");
     // C++ allows us to do this with the standard library!
@@ -149,7 +160,8 @@ void Matrix::swap_rows(std::size_t r1, std::size_t r2) {
     // this->print_matrix(); // print resulting matrix
 }
 
-void Matrix::swap_cols(std::size_t c1, std::size_t c2) {
+template<typename Data>
+void Matrix<Data>::swap_cols(std::size_t c1, std::size_t c2) {
     if (c1 < 0 || c2 < 0 || c1 >= this->get_size() || c2 >= this->get_size())
         throw std::out_of_range("Out of range of matrix!");
     
@@ -161,3 +173,9 @@ void Matrix::swap_cols(std::size_t c1, std::size_t c2) {
 
     // this->print_matrix(); // Print resulting matrix
 } 
+
+// This is fucking painful, but I understand now why it exists.
+template class Matrix<double>;
+template class Matrix<int>;
+
+

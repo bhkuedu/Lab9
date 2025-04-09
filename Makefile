@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall
 
-all: main
+all: matrix.o main
 
 main: main.cpp matrix.o
 	$(CXX) $(CXXFLAGS) -o main main.cpp matrix.o

@@ -18,50 +18,87 @@ int main(int argc, char *argv[]) {
 
     
     int N;
+    int type;
     file >> N; // get matrix size
+    file >> type; // Gets type. 0 for integer, 1 for double-precision matrices.
 
     
     if (N < 0)
         throw std::invalid_argument("Matrix size cannot be invalid!");
 
     file.ignore(); // make sure to blank this newline
-
     
-    Matrix matrix1(N);
-    Matrix matrix2(N);
+    if (type == 0)  { // Integer type
+        Matrix<int> matrix1(N);
+        Matrix<int> matrix2(N);
 
 
-    // shove in values from file into matrix 1
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            int num;
-            file >> num;
+        // shove in values from file into matrix 1
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                int num;
+                file >> num;
 
-            matrix1.set_value(i, j, num);
+                matrix1.set_value(i, j, num);
+            }
         }
-    }
 
-    file.ignore(); // dont mind newline
+        file.ignore(); // dont mind newline
 
-    // shove in values from file into matrix 2 this time
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            int num;
-            file >> num;
+        // shove in values from file into matrix 2 this time
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                int num;
+                file >> num;
 
-            matrix2.set_value(i, j, num);
+                matrix2.set_value(i, j, num);
+            }
         }
-    }
 
+        std::cout << std::endl << "Matrix 1:" << std::endl << std::endl;
+        matrix1.print_matrix();
+
+        std::cout << std::endl << "Matrix 2:" << std::endl << std::endl;
+        matrix2.print_matrix();
+
+    } else { // Double type
+        Matrix<double> matrix1(N);
+        Matrix<double> matrix2(N);
+
+
+        // shove in values from file into matrix 1
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                double num;
+                file >> num;
+
+                matrix1.set_value(i, j, num);
+            }
+        }
+
+        file.ignore(); // dont mind newline
+
+        // shove in values from file into matrix 2 this time
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                double num;
+                file >> num;
+
+                matrix2.set_value(i, j, num);
+            }
+        }
+        
+        std::cout << std::endl << "Matrix 1:" << std::endl << std::endl;
+        matrix1.print_matrix();
+
+        std::cout << std::endl << "Matrix 2:" << std::endl << std::endl;
+        matrix2.print_matrix();
+    }
+    
     file.close(); // gotta close the file since we're done with it
 
     // matrix info
 
-    std::cout << std::endl << "Matrix 1:" << std::endl << std::endl;
-    matrix1.print_matrix();
-
-    std::cout << std::endl << "Matrix 2:" << std::endl << std::endl;
-    matrix2.print_matrix();
 
     // Aditional testing stuff
     // // sum
