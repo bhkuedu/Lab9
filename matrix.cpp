@@ -174,8 +174,5 @@ void Matrix<Data>::swap_cols(std::size_t c1, std::size_t c2) {
     // this->print_matrix(); // Print resulting matrix
 } 
 
-// This is fucking painful, but I understand now why it exists.
-template class Matrix<double>;
-template class Matrix<int>;
 
 
